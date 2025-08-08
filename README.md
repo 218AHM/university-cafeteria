@@ -9,7 +9,7 @@ This is a Django-based web application that allows university students to browse
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/university-cafeteria.git
+   git clone https://github.com/218AHM/university-cafeteria.git
    cd university-cafeteria
    ```
 
