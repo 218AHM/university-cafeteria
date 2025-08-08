@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% load form_extras %}
+
+{% block title %}Place an Order{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/order-style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="order-container">
+    <h1>Place Your Order</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" id="order-form">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+
+        {% for category in categories %}
+        <div class="category-section">
+            <div class="category-header">
+                <img src="{{ category.category_image.url }}" alt="{{ category.category_name }}">
+                <h2>{{ category.category_name }}</h2>
+            </div>
+
+            <div class="food-items">
+                {% for food in category.food_items.all %}
+                <div class="food-row {% if not food.is_available %}unavailable{% endif %}"
+                     data-id="{{ food.food_item_id }}"
+                     data-name="{{ food.food_name }}"
+                     data-price="{{ food.food_price }}">
+                    <div>
+                        <strong>{{ food.food_name }}</strong> – ${{ food.food_price }}
+                        {% if food.food_description %}
+                            <div class="description">{{ food.food_description }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="qty-box">
+                        <input type="number"
+                               name="qty_{{ food.food_item_id }}"
+                               class="qty-input"
+                               min="0" step="1" value="0"
+                               {% if not food.is_available %}disabled{% endif %}>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="button" id="preview-btn">Review Order</button>
+
+        <div class="modal" id="order-modal">
+            <div class="modal-content">
+                <h2>Order Summary</h2>
+                <div id="summary-items"></div>
+                <p>Total: $<span id="order-total">0.00</span></p>
+                <div class="modal-buttons">
+                    <button type="submit">Confirm Order</button>
+                    <button type="button" id="cancel-preview">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/order-script.js' %}"></script>
+{% endblock %}

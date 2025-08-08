@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}University Cafeteria{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/home-style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<header class="nav">
+  <div class="left">
+    <a class="brand" href="{% url 'home' %}">
+      <img src="{% static 'images/cafe-logo.png' %}" alt="University Cafeteria" style="border-radius: 5px;">
+    </a>
+    {% if user.is_authenticated %}
+      <span class="hello">Hi, {{ user.username }}</span>
+    {% endif %}
+  </div>
+
+  <nav class="right">
+    {% url 'menu' as menu_url %}{% if menu_url %}<a href="{{ menu_url }}">Menu</a>{% endif %}
+    {% url 'order' as order_url %}{% if order_url %}<a href="{{ order_url }}">Place Order</a>{% endif %}
+    {% if user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-link">Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="foot">
+  <small>&copy; {% now "Y" %} University Cafeteria</small>
+</footer>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

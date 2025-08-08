@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Our Menu{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/menu-style.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="menu-section">
+    <h1>Our Menu</h1>
+    <div class="menu-grid">
+    {% for category in categories %}
+        <div class="menu-card">
+            <img src="{{ category.category_image.url }}" alt="{{ category.category_name }}">
+            <h3>{{ category.category_name|upper }}</h3>
+            <a href="#cat-{{ category.category_id }}">READ MORE</a>
+        </div>
+    {% empty %}
+        <p>No categories available yet.</p>
+    {% endfor %}
+    </div>
+</section>
+
+{% for category in categories %}
+    <section class="category-section" id="cat-{{ category.category_id }}">
+        <div class="category-box">
+            <div class="category-image">
+                <img src="{{ category.category_image.url }}" alt="{{ category.category_name }}">
+            </div>
+            <div class="category-content">
+                <h2 class="category-title">{{ category.category_name }}</h2>
+                <div class="food-list">
+                    {% for food in category.food_items.all %}
+                        <div class="food-entry {% if not food.is_available %}unavailable{% endif %}">
+                            <strong>{{ food.food_name }}</strong> – ${{ food.food_price }}<br>
+                            <span>{{ food.food_description|default:"No description." }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
+{% endblock %}

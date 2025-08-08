@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cafeteria • Home{% endblock %}
+
+{% block content %}
+<section class="hero" style="background-image: url('{% static "images/hero.png" %}');">
+  <div class="hero-inner">
+    <h1>Fresh, Fast, On-Campus.</h1>
+    <p>Browse today’s menu and place your order in seconds.</p>
+    <div class="cta">
+      {% url 'menu' as menu_url %}
+      {% url 'order' as order_url %}
+      {% if menu_url %}<a class="btn-gold" href="{{ menu_url }}">View Menu</a>{% endif %}
+      {% if order_url %}<a class="btn-outline" href="{{ order_url }}">Order Now</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="categories">
+  <h2>Categories</h2>
+  <div class="grid">
+    {% for c in categories %}
+      <a class="card" href="{{ menu_url|default:'#' }}#cat-{{ c.category_id }}">
+        {% if c.category_image %}
+          <img src="{{ c.category_image.url }}" alt="{{ c.category_name }}">
+        {% endif %}
+        <div class="card-title">{{ c.category_name }}</div>
+      </a>
+    {% empty %}
+      <p>No categories yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="featured">
+  <h2>Most Popular</h2>
+  <div class="grid">
+    {% for item in popular %}
+      <div class="card">
+        {% if item.food_image %}
+          <img src="{{ item.food_image.url }}" alt="{{ item.food_name }}">
+        {% endif %}
+        <div class="card-title">{{ item.food_name }}</div>
+        <div class="card-meta">${{ item.food_price|floatformat:2 }}</div>
+        {% if order_url %}
+          <a class="btn-gold" href="{{ order_url }}">Add to order</a>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No popular items yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

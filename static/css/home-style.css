@@ -1,0 +1,119 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0; padding: 0;
+  background-color: #fdfaf3; color: #111;
+}
+
+/* === Header === */
+.nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 20px; background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.nav .left { display: flex; align-items: center; gap: 12px; }
+.nav .brand img { height: 38px; width: auto; display: block; }
+.nav .hello { font-size: 0.95rem; color: #555; }
+
+.nav .right { display: flex; align-items: center; gap: 16px; }
+.nav a { color: #111; text-decoration: none; font-weight: 500; }
+.nav a:hover { text-decoration: underline; }
+.nav form { margin: 0; }
+.btn-link {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: #111; font-weight: 500;
+}
+.btn-link:hover { text-decoration: underline; }
+
+/* === Logo === */
+.logo {
+  height: 70px; /* bigger for visibility */
+  width: auto;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px; /* reduced padding so larger logo fits nicely */
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.nav .left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav .hello {
+  font-size: 1rem;
+  color: #6b4b3e; /* warm brown from logo */
+  font-weight: 500;
+}
+
+/* === Hero === */
+.hero {
+  position: relative;
+  background-size: cover; background-position: center;
+  min-height: 46vh;
+  display: flex; align-items: center; justify-content: center;
+  
+}
+.hero img {
+    filter: blur(50px);
+}
+
+.hero::after { /* soft overlay for text readability */
+  content: ""; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+.hero-inner {
+  position: relative; z-index: 1; text-align: center; color: #fff;
+  padding: 60px 20px;
+}
+.hero h1 { font-size: 2.4rem; margin: 0 0 10px; }
+.hero p { margin: 0 0 18px; color: #fff; opacity: 0.95; }
+
+.btn-gold, .btn-outline {
+  display: inline-block; padding: 10px 20px; border-radius: 25px;
+  text-decoration: none; font-weight: 600; margin: 0 6px;
+}
+.btn-gold { background: #f4b400; color: #fff; }
+.btn-gold:hover { background: #db9d00; }
+.btn-outline { border: 2px solid #fff; color: #fff; }
+.btn-outline:hover { background: rgba(255,255,255,0.12); }
+
+
+
+/* === Sections === */
+section { padding: 40px 20px; text-align: center; }
+.categories h2, .featured h2 { font-size: 1.8rem; margin-bottom: 20px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px; max-width: 1100px; margin: 0 auto;
+}
+
+.card {
+  background: #fff; border-radius: 20px; padding: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  text-align: center; text-decoration: none; color: inherit;
+}
+.card img {
+  width: 100%; height: 160px; object-fit: cover; border-radius: 14px;
+}
+.card-title { margin-top: 12px; font-size: 1.1rem; font-weight: 700; }
+.card-meta {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: #666;
+  font-size: 16px;
+}
+
+.foot { padding: 26px 20px; text-align: center; color: #777; }
